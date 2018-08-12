@@ -7,6 +7,7 @@
 1. Получите bot_token через @botfather
 2. Получите api_id и api_hash здесь https://core.telegram.org/api/obtaining_api_id
 3. Создайте **публичный** канал в telegram, куда будут загружаться видео с youtube
+4. Если у вас нет аккаунта на heroku.com, создайте его (на своем хостинге поднимать веселее, но дольше)
 
 ## Легкая быстрая установка на heroku
 1. Перейдите по ссылке https://heroku.com/deploy
