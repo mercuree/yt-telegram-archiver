@@ -1,0 +1,9 @@
+{% extends 'admin/base.html' %}
+
+{% block menu_links %}
+{% if is_logged_in() %}
+<ul class="nav navbar-nav navbar-right">
+    <li><a href="{{ url_for('simplelogin.logout') }}">Log out</a></li>
+</ul>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,67 @@
+{
+  "name": "Youtube to Telegram Backuper",
+  "description": "Script waiting for new youtube videos, downloads them and reupload to Telegram",
+  "addons":[
+     {"plan":"scheduler:standard"},
+     {"plan":"mongolab:sandbox"}
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
+    },
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "env":{
+    "APP_NAME": {
+      "description": "Application Name (must be equal to heroku App name"
+    },
+    "PROD_ENV":{
+      "description": "Inside production environment by default",
+      "value": true
+    },
+    "TELEGRAM_BOT_TOKEN": {
+      "description":"Telegram bot token. Use @botfather to obtain this key."
+    },
+    "TELEGRAM_API_ID":{
+      "description":"API id for telegram app. For more info, visit https://core.telegram.org/api/obtaining_api_id"
+    },
+    "TELEGRAM_API_HASH":{
+      "description":"API hash for telegram app. For more info, visit https://core.telegram.org/api/obtaining_api_id"
+    },
+    "TELEGRAM_USERNAME": {
+      "description": "Put your own tg username to receive debug messages"
+    },
+    "TELEGRAM_ARCHIVE_CHANNEL_USERNAME": {
+      "description": "Channel to send archived videos. The channel must have username for now"
+    },
+    "MONGODB_USER": {
+      "description": "Mongodb username",
+      "required": false
+    },
+    "MONGODB_PASSWORD": {
+      "description": "Mongodb password",
+      "required": false
+    },
+    "MONGODB_SOCKET_PATH": {
+      "description": "mongodb socket path (mongodb://login:password@[socket_path_here])",
+      "required": false
+    },
+    "PUBSUBHUB_SECRET": {
+      "description": "very very secret path for google to fetch",
+      "generator": "secret"
+    },
+    "FLASK_SECRET": {
+      "description": "secret key for flask app",
+      "generator": "secret"
+    },
+    "SIMPLELOGIN_USERNAME": {
+      "description": "flask admin username for auth",
+      "value": "admin"
+    },
+    "SIMPLELOGIN_PASSWORD": {
+      "description": "flask admin password"
+    }
+  }
+}
