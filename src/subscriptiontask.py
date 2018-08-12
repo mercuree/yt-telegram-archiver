@@ -19,6 +19,13 @@ def subscribe_channel(channel_id):
     logging.info('Subscribtion task for channel %s finished: %s' % (channel_id, resp.text))
 
 
+def unsubscribe_channel(channel_id):
+    url = base_url + '/tasks/subscribepubsubhub'
+    resp = requests.get(url, params={'channel_id': channel_id, 'mode': 'unsubscribe'})
+
+    logging.info('Channel %s was unsubscribed: %s' % (channel_id, resp.text))
+
+
 def subscribe_task():
     channels = db.get_channels()
     for channel in channels:

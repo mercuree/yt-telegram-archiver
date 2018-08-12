@@ -52,6 +52,9 @@ class ChannelsView(ModelView):
             subscriptiontask.subscribe_channel(model["channel_id"])
             model['created'] = datetime.utcnow()
 
+    def on_model_delete(self, model):
+        subscriptiontask.unsubscribe_channel(model["channel_id"])
+
     def is_accessible(self):
         return is_logged_in('admin')
 
@@ -95,15 +98,20 @@ def backup_video_from_url():
 
 @app.route('/tasks/subscribepubsubhub', methods=['GET'])
 def pubsubhubbub_subscribe():
+    mode = request.args.get('mode') or 'subscribe'
     youtube_channel_id = request.args.get('channel_id')
     if not youtube_channel_id:
         logging.log(logging.WARNING, 'youtube channel id is missing')
         return 'not ok. youtube channel id is missing'
+    if mode not in ('subscribe', 'unsubscribe'):
+        logging.log(logging.WARNING, 'request mode is unknown')
+        return 'not ok. request mode is unknown'
 
+    log_prefix = 'un' if mode is "unsubscribed" else ''
     data = {
         'hub.callback': 'https://{}.herokuapp.com/pubsubhub{}'.format(
             config.APP_NAME.lower(), config.PUBSUBHUB_SECRET_PART),
-        'hub.mode': 'subscribe',
+        'hub.mode': mode,
         'hub.topic': 'https://www.youtube.com/xml/feeds/videos.xml?channel_id=%s' % youtube_channel_id
     }
     resp = requests.post(
@@ -112,10 +120,10 @@ def pubsubhubbub_subscribe():
     )
 
     if resp.status_code == 202:
-        logging.log(logging.INFO, "Channel %s subscribed successfully" % youtube_channel_id)
+        logging.log(logging.INFO, "Channel %s %ssubscribed successfully" % (log_prefix, youtube_channel_id))
         return 'ok'
     else:
-        logging.log(logging.WARNING, "Channel %s subscribe FAILED" % youtube_channel_id)
+        logging.log(logging.WARNING, "Channel %s %ssubscribe FAILED" % (log_prefix, youtube_channel_id))
         return 'not ok'
 
 
