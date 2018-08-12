@@ -19,7 +19,7 @@
     },
     "PROD_ENV":{
       "description": "Inside production environment by default",
-      "value": true
+      "value": "true"
     },
     "TELEGRAM_BOT_TOKEN": {
       "description":"Telegram bot token. Use @botfather to obtain this key."
