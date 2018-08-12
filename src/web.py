@@ -63,9 +63,27 @@ class ChannelsView(ModelView):
         return redirect(url_for('simplelogin.login', next=request.url))
 
 
+class BackupUrl(flask_admin.BaseView):
+    @expose('/', methods=('GET', 'POST'))
+    def index(self):
+        if not is_logged_in('admin'):
+            return redirect(url_for('simplelogin.login', next=request.url))
+        if request.method == 'GET':
+            return self.render('upload_from_url.html')
+
+        url = request.form.get('url')
+        if url:
+            download_and_send(url)
+            result = 'In proccess'
+        else:
+            result = 'url not set'
+        return self.render('upload_from_url.html', result=result)
+
+
 admin = Admin(app, name=config.APP_NAME, template_mode='bootstrap3', index_view=MyAdminIndexView(),
               base_template='my_master.html')
 admin.add_view(ChannelsView(db.db['channels']))
+admin.add_view(BackupUrl(name='Backup From Youtube URL', endpoint='upload_from_url'))
 
 
 def download_and_send(url):
@@ -77,23 +95,7 @@ def go_to_admin():
     return redirect(url_for('admin.index'))
 
 
-@app.route('/backupVideoFromUrl', methods=['GET', 'POST'])
-@login_required
-def backup_video_from_url():
 
-    if request.method == 'GET':
-        return '<!doctype html><html><body>' \
-               '<form action="/backupVideoFromUrl" method="POST">' \
-               '<input type="text" name="url" /> <input type="submit" value="Send"/>' \
-               '</form>' \
-               '</body></html>'
-
-    url = request.form.get('url')
-    if url:
-        download_and_send(url)
-        return 'In proccess'
-    else:
-        return 'url not set'
 
 
 @app.route('/tasks/subscribepubsubhub', methods=['GET'])
