@@ -12,15 +12,15 @@
 1. Перейдите по ссылке https://heroku.com/deploy
 2. Придумайте название приложения латинскими буквами без пробелов(можно дефисы) - будет создан субдомен с таким же именем.
 3. Заполните поля Config Vars
-3.1 APP_NAME - должен совпадать с названием приложения, которое вы придумали.
-3.2 MONGODB_PASSWORD, MONGODB_USER, MONGODB_SOCKET_PATH можно не заполнять
-3.3 PROD_ENV можно не менять
-3.4 SIMPLELOGIN_USERNAME - придумайте имя пользователя для админки (по умолчанию admin)
-3.5 SIMPLELOGIN_PASSWORD - придумайте пароль для админки
-3.6 TELEGRAM_API_HASH и TELEGRAM_API_ID- значения, которые вы получили на странице https://core.telegram.org/api/obtaining_api_id
-3.7 TELEGRAM_ARCHIVE_CHANNEL_USERNAME - название публичного канала, куда будут загружены видео.
-3.8 TELEGRAM_BOT_TOKEN - токен, полученный через @botfather
-3.9 TELEGRAM_USERNAME - ваш собственный username в telegram
+* APP_NAME - должен совпадать с названием приложения, которое вы придумали.
+* MONGODB_PASSWORD, MONGODB_USER, MONGODB_SOCKET_PATH можно не заполнять
+* PROD_ENV можно не менять
+* SIMPLELOGIN_USERNAME - придумайте имя пользователя для админки (по умолчанию admin)
+* SIMPLELOGIN_PASSWORD - придумайте пароль для админки
+* TELEGRAM_API_HASH и TELEGRAM_API_ID- значения, которые вы получили на странице https://core.telegram.org/api/obtaining_api_id
+* TELEGRAM_ARCHIVE_CHANNEL_USERNAME - название публичного канала, куда будут загружены видео.
+* TELEGRAM_BOT_TOKEN - токен, полученный через @botfather
+* TELEGRAM_USERNAME - ваш собственный username в telegram
 4. Нажмите Deploy app и подождите завершения установки
 5. После завершения установки админка будет доступна по адресу https://<название_приложения>.herokuapp.com/admin
 
