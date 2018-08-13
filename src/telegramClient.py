@@ -106,6 +106,10 @@ class TelegramDownloaderAndSender(object):
             logging.warn('Video with id %s already exists' % video_info.get('id'))
             return False
 
+        if video_info.get('is_live') is True:
+            logging.warn('Video %s is live streaming. Skip' % video_info.get('id'))
+            return False
+
         return video_info
 
     def callback(self, a, b):
