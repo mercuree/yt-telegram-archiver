@@ -6,8 +6,12 @@
         <p>{{result}}</p>
     {% else %}
         <form action="{{ url_for('upload_from_url.index') }}" method="POST">
-            <input type="text" name="url" placeholder="ex.: https://www.youtube.com/watch?v=dQw4w9WgXcQ"/>
-            <input type="submit" value="Send"/>
+            <div class="row">
+                <div class="col-xs-8">
+                    <input type="text" class="form-control" name="url" placeholder="ex.: https://www.youtube.com/watch?v=dQw4w9WgXcQ"/>
+                </div>
+                <input type="submit" value="Send" class="btn btn-primary"/>
+            </div>
         </form>
     {% endif %}
 {% endif %}

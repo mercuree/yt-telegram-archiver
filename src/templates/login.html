@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Flask Login</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <style>
+        html,
+body {
+  height: 100%;
+}
+
+body {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #f5f5f5;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+    </style>
+</head>
+<body>
+    <form class="form-signin" action="{{ url_for('simplelogin.login') }}" method="post">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <ul class="flashes alert">
+      {% for category, message in messages %}
+        <li class="flashes alert alert-{{category}}">{{ message }}</li>
+      {% endfor %}
+      </ul>
+    {% else %}
+      <div class="alert alert-primary">
+        Please provide username and password to login
+      </div>
+    {% endif %}
+    {% endwith %}
+
+    {%if form.errors %}
+    <ul class="alert alert-danger">
+      {% for field, errors in form.errors.items() %}
+        <li>{{field}} {% for error in errors %}{{ error }}{% endfor %}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+
+      <label for="inputUsername" class="sr-only">Username</label>
+      <input type="text" id="inputUsername" name="username" class="form-control" placeholder="Username" required autofocus>
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input type="password" id="inputPassword" name="password" class="form-control" placeholder="password" required>
+
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        {{ form.csrf_token }}
+        {% if next %}<input type="hidden" name="next" value="{{next}}">{% endif %}
+    </form>
+</body>
+</html>

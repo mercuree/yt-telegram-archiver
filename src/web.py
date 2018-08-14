@@ -1,7 +1,7 @@
 # coding=utf-8
 
 
-from flask import Flask, request, url_for, redirect
+from flask import Flask, request, url_for, redirect, session
 import logging
 from src import telegramClient
 from src import config
@@ -68,15 +68,22 @@ class BackupUrl(flask_admin.BaseView):
     def index(self):
         if not is_logged_in('admin'):
             return redirect(url_for('simplelogin.login', next=request.url))
-        if request.method == 'GET':
-            return self.render('upload_from_url.html')
 
-        url = request.form.get('url')
-        if url:
-            download_and_send(url)
-            result = 'In proccess'
-        else:
-            result = 'url not set'
+        result = None
+        if request.method == 'POST':
+
+            url = request.form.get('url')
+            if url:
+                download_and_send(url)
+                result = 'In proccess'
+            else:
+                result = 'url not set'
+
+            session['result'] = result
+            return redirect(url_for('upload_from_url.index'))
+        elif request.method == 'GET':
+            result = session.pop('result', None)
+
         return self.render('upload_from_url.html', result=result)
 
 
@@ -93,9 +100,6 @@ def download_and_send(url):
 @app.route('/', methods=['GET'])
 def go_to_admin():
     return redirect(url_for('admin.index'))
-
-
-
 
 
 @app.route('/tasks/subscribepubsubhub', methods=['GET'])
