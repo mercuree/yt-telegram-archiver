@@ -52,7 +52,7 @@ class TelegramDownloaderAndSender(object):
 
         await client.start(bot_token=bot_token)
 
-        start_msg = f'**url**: {vi["webpage_url"]}' \
+        start_msg = f'**url**: {vi["webpage_url"]}\n' \
                     f'**Title**: {vi["title"]}\n' \
                     f'**Description**: \n{vi["description"]}\n' \
                     f'**Duration**: {vi["duration"]}\n' \
@@ -119,8 +119,11 @@ class TelegramDownloaderAndSender(object):
 
     async def handler(self, event):
         # dummy function
-        await self.client.send_message(config.TELEGRAM_USERNAME, self.upload_progress)
-        print(event)
+        if event.message.sender.is_self is False:
+            await self.client.send_message(config.TELEGRAM_USERNAME, self.upload_progress)
+            print(event)
+        else:
+            logging.warning('Another session is running')
 
 
 def main(url=config.TEST_VIDEO_URL):

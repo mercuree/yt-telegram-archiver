@@ -8,5 +8,5 @@ hachoir3==3.0a2
 pillow==5.1.0
 pymongo==3.7.0
 requests==2.19.1
-telethon==1.0.3
+telethon==1.2
 youtube-dl==2018.6.19
