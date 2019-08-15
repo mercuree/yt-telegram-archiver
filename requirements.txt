@@ -1,12 +1,12 @@
 cryptg==0.1.0.7
 feedparser==5.2.1
 flask==1.0.2
-flask-admin==1.5.1
+flask-admin==1.5.3
 flask_simplelogin==0.0.6
-gunicorn==19.8.1
+gunicorn==19.9.0
 hachoir3==3.0a2
 pillow==5.1.0
 pymongo==3.7.0
-requests==2.19.1
+requests==2.22.0
 telethon==1.2
-youtube-dl==2018.6.19
+youtube-dl==2019.08.13
