@@ -5,7 +5,7 @@ flask-admin==1.5.3
 flask_simplelogin==0.0.6
 gunicorn==19.9.0
 hachoir3==3.0a2
-pillow==6.2.0
+pillow==8.1.1
 pymongo==3.7.0
 requests==2.22.0
 telethon==1.2
